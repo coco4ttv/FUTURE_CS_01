@@ -54,11 +54,11 @@ Do not bypass the browser warning or proceed to the unsafe site.
 1. Re-capture the HTTP response headers in Chrome DevTools, ensuring cookie values are not included in evidence.
 2. Inspect the HTTPS certificate details without bypassing the browser warning.
 3. Review public pages manually while OWASP ZAP passive scanning observes ordinary browser traffic.
-4. Consider a limited Nmap port check only if the target's testing scope explicitly permits active network probing.
-5. Validate each observation and document only evidence-backed findings.
+4. Validate each observation and document only evidence-backed findings.
 
-## 5. Limitations
+## 5. Scope decisions and limitations
 
+- **Nmap is not authorised for this assessment.** No port or service scanning will be performed against Testfire, and no Nmap results will be included in the report.
 - These observations are based on browser screenshots supplied by the assessor and have not yet been independently reproduced in this report. The HTTPS screenshot is linked above; the HTTP screenshot requires a redacted replacement before it can be added to the public repository.
 - The HTTPS certificate chain and validity dates have not yet been captured.
 - The full set of response headers has not yet been verified.
