@@ -21,12 +21,12 @@ Source: assessor-provided Chrome DevTools screenshot of the main document reques
 - 200 OK means the server returned a successful response to that HTTP request. It does not mean the application is secure.
 - The browser's "Not secure" indicator is consistent with the page being loaded over unencrypted HTTP.
 - Apache-Coyote/1.1 is the exact Server header value observed. Do not infer a specific software release from this string alone.
-- HttpOnly is visible for the JSESSIONID cookie. The screenshot also exposed the cookie value; do not publish the original image. Capture a replacement screenshot with the value redacted.
+- HttpOnly is visible for the JSESSIONID cookie. The original screenshot exposed the cookie value and has been removed from the public repository. Use only a redacted replacement image.
 - Do not infer that a header is absent from the entire site based on one response.
 
 ## 2. HTTPS browser observation
 
-Source: assessor-provided Chrome screenshot after navigating to https://testfire.net/.
+Evidence: [HTTPS certificate warning](../evidence/https-certificate-warning.png).
 
 - Chrome displayed "Your connection is not private".
 - Error code shown: NET::ERR_CERT_AUTHORITY_INVALID.
@@ -59,7 +59,7 @@ Do not bypass the browser warning or proceed to the unsafe site.
 
 ## 5. Limitations
 
-- These observations are based on screenshots supplied by the assessor and have not yet been independently reproduced in this report.
+- These observations are based on browser screenshots supplied by the assessor and have not yet been independently reproduced in this report. The HTTPS screenshot is linked above; the HTTP screenshot requires a redacted replacement before it can be added to the public repository.
 - The HTTPS certificate chain and validity dates have not yet been captured.
 - The full set of response headers has not yet been verified.
 - No Nmap scan, ZAP active scan, login attempt, form submission, exploitation, brute force or denial-of-service test is recorded here.
