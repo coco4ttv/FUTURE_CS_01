@@ -59,17 +59,4 @@ Before using any Aikido result:
 | Cookie flags | Freshly inspect Set-Cookie attributes with cookie value redacted |
 | Missing SRI | Identify specific third-party scripts/styles lacking integrity attributes; assess applicability and risk |
 
-## E. Next safe steps
 
-1. In Chrome, return to the HTTP page. Do not bypass the HTTPS certificate warning.
-2. In DevTools, inspect the main document response and capture the full response-header names/values, redacting cookie values.
-3. Use Chrome's certificate viewer from the warning page only to inspect the certificate details; do not proceed to the site.
-4. In Aikido, inspect existing issue details only. Do not launch another scan.
-5. Continue with OWASP ZAP passive mode on manually browsed public pages only after confirming the exact target scope.
-
-## Assessment limitations
-
-- The observations are based on screenshots supplied by the assessor, not independently reproduced in this document.
-- The exact TLS certificate chain and validity dates have not yet been captured.
-- No active Nmap scan or active ZAP scan has been performed.
-- No login, account, transaction, form submission, exploitation or intrusive testing was performed as part of these recorded observations.
