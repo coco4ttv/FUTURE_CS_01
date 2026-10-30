@@ -7,7 +7,7 @@ Target selected; baseline capture is pending. No security scan has been run and 
 Produce a read-only vulnerability assessment, document substantiated observations, classify risks as Low / Medium / High, and provide practical remediation guidance in business-friendly language.
 
 ## Target and scope
-- **Entry URL:** http://testfire.net/ (reported as loading in the assessor's browser).
+- **Entry URL:** http://testfire.net/ .
 - **Effective URL and hostname:** To be recorded from the initial redirect/response check before further testing.
 - **Application context:** AltoroJ / Testfire is documented by OWASP ZAP as an open-source sample banking application maintained by HCL Software. ZAP's documentation lists https://demo.testfire.net/ as its online demo. The exact host reached from the entry URL will be recorded; scope will not be expanded to unrelated hosts or subdomains.
 - **Authorisation and limits:** Treat this as a read-only assessment of the publicly presented demo content. Do not perform login attempts, submit forms, access account data, exploit issues, or conduct active scanning.
