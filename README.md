@@ -20,7 +20,7 @@ Produce a read-only vulnerability assessment, document substantiated observation
 - **OpenSSL:** Inspect the TLS certificate presented for the target and attempt certificate/hostname verification. This is a connection to the target's TLS service, limited to certificate inspection.
 - **OWASP ZAP:** Passive mode only, observing manually browsed public pages; do not use active scan, spider/crawler, attack or fuzz features.
 - **Canva:** Design the final report.
-- **Nmap:** Not used. Port and service scanning is not authorised for this assessment.
+- **Nmap:** Not used.
 
 ## Planned workflow
 1. Record the initial response and final URL for the entry URL.
