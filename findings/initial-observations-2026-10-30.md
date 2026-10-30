@@ -4,7 +4,7 @@
 
 ## 1. HTTP browser baseline
 
-Source: assessor-provided Chrome DevTools screenshot of the main document request.
+**Evidence:** Pending upload of the redacted replacement named `http-homepage-response-headers-redacted.png`. The original screenshot was removed from the public repository because it exposed a session-cookie value.
 
 - Requested URL: http://testfire.net/
 - Request method: GET
@@ -26,7 +26,7 @@ Source: assessor-provided Chrome DevTools screenshot of the main document reques
 
 ## 2. HTTPS browser observation
 
-Evidence: [HTTPS certificate warning](../evidence/https-certificate-warning.png).
+**Evidence:** [HTTPS certificate warning](../evidence/https-certificate-warning.png).
 
 - Chrome displayed "Your connection is not private".
 - Error code shown: NET::ERR_CERT_AUTHORITY_INVALID.
