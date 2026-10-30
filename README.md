@@ -1,7 +1,7 @@
 # Future Interns — Task 1: Vulnerability Assessment Report
 
 ## Project status
-Target selected; baseline capture is pending. No security scan has been run and no findings have been confirmed.
+Target selected; preliminary browser baseline captured and recorded. HTTPS certificate validation and scanner-reported leads remain unverified. No findings have been confirmed.
 
 ## Objective
 Produce a read-only vulnerability assessment, document substantiated observations, classify risks as Low / Medium / High, and provide practical remediation guidance in business-friendly language.
@@ -32,7 +32,7 @@ Produce a read-only vulnerability assessment, document substantiated observation
 8. Publish the report and sanitised supporting evidence in this repository.
 
 ## Findings
-No findings have been confirmed yet. This section will be updated after evidence is collected.
+No findings have been confirmed yet. See [initial observations](findings/initial-observations-2026-10-30.md) for the HTTP response, browser certificate warning and unverified third-party scanner leads. All candidate issues require validation before final risk classification.
 
 ## Deliverables
 - [ ] Initial response and redirect details recorded
