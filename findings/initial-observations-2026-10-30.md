@@ -4,7 +4,7 @@
 
 ## 1. HTTP browser baseline
 
-**Evidence:** Pending upload of the redacted replacement named `http-homepage-response-headers-redacted.png`. The original screenshot was removed from the public repository because it exposed a session-cookie value.
+**Evidence:** [HTTP homepage and response headers](<../evidence/HTTP homepage and response headers.jpeg>) — redacted Chrome DevTools screenshot of the Testfire homepage and main document response headers. The screenshot is stored in the repository's evidence folder; the session-cookie value has been redacted.
 
 - Requested URL: http://testfire.net/
 - Request method: GET
@@ -21,7 +21,7 @@
 - 200 OK means the server returned a successful response to that HTTP request. It does not mean the application is secure.
 - The browser's "Not secure" indicator is consistent with the page being loaded over unencrypted HTTP.
 - Apache-Coyote/1.1 is the exact Server header value observed. Do not infer a specific software release from this string alone.
-- HttpOnly is visible for the JSESSIONID cookie. The original screenshot exposed the cookie value and has been removed from the public repository. Use only a redacted replacement image.
+- HttpOnly is visible for the JSESSIONID cookie. The public evidence screenshot is a redacted replacement; do not publish any unredacted copy containing cookie or session values.
 - Do not infer that a header is absent from the entire site based on one response.
 
 ## 2. HTTPS browser observation
@@ -51,15 +51,14 @@ Do not bypass the browser warning or proceed to the unsafe site.
 
 ## 4. Next steps
 
-1. Re-capture the HTTP response headers in Chrome DevTools, ensuring cookie values are not included in evidence.
-2. Inspect the HTTPS certificate details without bypassing the browser warning.
-3. Review public pages manually while OWASP ZAP passive scanning observes ordinary browser traffic.
-4. Validate each observation and document only evidence-backed findings.
+1. Inspect the HTTPS certificate details without bypassing browser warnings.
+2. Review public pages manually while OWASP ZAP passive scanning observes ordinary browser traffic.
+3. Validate each observation and document only evidence-backed findings.
 
 ## 5. Scope decisions and limitations
 
 - **Nmap is not authorised for this assessment.** No port or service scanning will be performed against Testfire, and no Nmap results will be included in the report.
-- These observations are based on browser screenshots supplied by the assessor and have not yet been independently reproduced in this report. The HTTPS screenshot is linked above; the HTTP screenshot requires a redacted replacement before it can be added to the public repository.
+- These observations are based on browser evidence supplied by the assessor and have not yet been independently reproduced in this report.
 - The HTTPS certificate chain and validity dates have not yet been captured.
 - The full set of response headers has not yet been verified.
 - No Nmap scan, ZAP active scan, login attempt, form submission, exploitation, brute force or denial-of-service test is recorded here.
