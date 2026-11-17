@@ -6,7 +6,7 @@
 |---|---|---|---|
 | OBS-01 | HTTP transport / redirect behaviour | Historical HTTP 200 observed; current status unknown | Chrome (30 Oct) and Firefox (8 Nov) show `http://testfire.net/` returning 200. Verify current redirect behaviour with one normal browser visit. |
 | OBS-02 | TLS certificate trust | Browser trust warning observed; cause unconfirmed | Chrome records `NET::ERR_CERT_AUTHORITY_INVALID` for `https://testfire.net/`. Do not claim expiry; inspect certificate and chain if safely available. |
-| OBS-03 | HTTP security headers | Incomplete; possible missing headers to verify | Firefox capture shows Content-Type, Date, Server and Transfer-Encoding only. Capture full raw response headers from a reachable public page before concluding a header is absent. |
+| OBS-03 | HTTP security headers | Incomplete; possible missing headers to verify | Firefox capture and raw transcription show Content-Type, Date, Server and Transfer-Encoding. Capture full raw headers from a reachable public page before concluding a header is absent. |
 | OBS-04 | Session-cookie attributes | Partially observed | HttpOnly and Path were visible in the 30 Oct response. Secure and SameSite were not established. Ensure cookie value is redacted in any public screenshot. |
 | OBS-05 | Server banner disclosure | Observed; impact unconfirmed | `Apache-Coyote/1.1` appears in historical response headers. A generic banner alone does not prove a vulnerable version. |
 
