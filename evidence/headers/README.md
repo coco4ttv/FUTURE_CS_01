@@ -1,11 +1,12 @@
 # HTTP Response Header Evidence
 
 ## Existing evidence
-- [Chrome HTTP capture](../browser/HTTP%20homepage%20and%20response%20headers.jpeg) — 30 October 2026; response details include Content-Type, Date, Server, Set-Cookie and Transfer-Encoding.
-- [Firefox HTTP capture](../browser/firefox_browser_check_2026-11-08%20210612.png) — 8 November 2026; response-header panel shows Content-Type, Date, Server and Transfer-Encoding.
+- [Chrome HTTP capture — 30 October](../browser/http-response-headers-2026-10-30.jpeg) — selected response details include Content-Type, Date, Server, Set-Cookie and Transfer-Encoding.
+- [Firefox HTTP capture — 8 November](../browser/firefox-http-response-2026-11-08.png) — DevTools shows Content-Type, Date, Server and Transfer-Encoding.
+- [Raw header transcription — 8 November](raw-response-headers-2026-11-08.txt) — transcribed from the supplied raw response-header screenshot.
 
 ## Important interpretation
-The Firefox screenshot's four visible response headers do not prove that every other security header is absent from all responses. The Chrome General panel's Referrer Policy field is not proof that a `Referrer-Policy` response header was sent.
+The four headers visible in the Firefox capture do not prove every other security header is absent from all responses. The Chrome General panel's Referrer Policy field is not proof that a `Referrer-Policy` response header was sent.
 
 ## Checks to complete
 For a reachable public page, capture the complete raw response headers and check:
