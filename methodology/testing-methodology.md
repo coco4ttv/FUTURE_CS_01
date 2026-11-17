@@ -1,14 +1,28 @@
 # Testing Methodology
 
-This is a constrained, read-only review. The order below is designed to avoid unnecessary requests and stop safely when the hosted demo is unavailable.
+## Work completed
 
-1. **Reachability check:** Visit the documented public entry point once. Record timestamp, URL, final URL, HTTP status or exact browser/network error. Do not repeatedly retry a failing host.
-2. **HTTP behaviour:** If reachable, observe ordinary HTTP-to-HTTPS redirect behaviour using a browser or a single normal GET request. Do not submit data.
-3. **TLS review:** If HTTPS is reachable without bypassing warnings, inspect certificate subject, issuer, validity period, subject alternative names and trust-chain result. If the browser reports an error, record it and stop before proceeding through the interstitial.
-4. **Response headers:** Capture relevant headers from ordinary public page responses. Record the exact page and timestamp; do not assume one page represents the whole site.
-5. **Cookie attributes:** Record whether Secure, HttpOnly and SameSite are present. Never record cookie values.
-6. **Passive observation:** Only if the site is reachable, browse public pages manually while OWASP ZAP is configured for passive observation. Do not spider, crawl, fuzz or active scan.
-7. **Validation and reporting:** Reproduce a candidate observation safely, assess impact, assign confidence and record remediation. Mark unverified items as pending rather than confirmed.
+I used normal browser navigation to review the public homepage and its HTTP response. I captured the browser's Network/Headers details rather than submitting forms or interacting with account features.
 
-## Unavailability procedure
-If the site does not respond, record the error, date/time, URL and whether DNS resolution succeeded (using ordinary system diagnostics only). Pause testing. Do not infer a vulnerability from downtime and do not substitute another host without documenting a revised scope and obtaining approval.
+- On 30 October 2026, Chrome showed a `200 OK` response for `GET http://testfire.net/`.
+- On 30 October 2026, Chrome displayed `NET::ERR_CERT_AUTHORITY_INVALID` when I opened `https://testfire.net/`. I recorded the warning and did not bypass it.
+- On 8 November 2026, Firefox showed another `200 OK` response for `GET http://testfire.net/`. I captured the response headers visible in DevTools.
+
+I have not yet captured a complete TLS certificate chain, a complete set of security response headers, or OWASP ZAP passive results. Those checks remain incomplete.
+
+## How I approached the review
+
+I used the following read-only checks where the target was available:
+
+1. I checked the public homepage and recorded the exact URL, response status and time.
+2. I observed the HTTP response and any redirect behaviour.
+3. I reviewed the browser's TLS/certificate result. I did not proceed through a certificate warning.
+4. I inspected response headers from ordinary public-page requests.
+5. I checked cookie attributes visible in the response, without recording cookie values.
+6. If the site was available, I used OWASP ZAP in passive mode while manually browsing public pages. I did not spider, crawl, fuzz or run an active scan.
+
+## Availability limitations
+
+The hosted demo has been intermittent. When a request failed, I recorded the error and date rather than interpreting the failure as a security weakness. The historical screenshots show that `testfire.net` responded over HTTP on 30 October and 8 November 2026; they do not establish its current availability.
+
+If I continue with a local AltoroJ installation, I will identify it as a separate target and keep its results distinct from the hosted-site evidence.
