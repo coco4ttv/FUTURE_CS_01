@@ -1,14 +1,14 @@
 # Final Report
 
-The final PDF belongs in this directory once the assessment is complete.
+I will place the exported assessment PDF in this directory when the review is complete.
 
-Before exporting:
-- Reconcile every report claim against the findings register and evidence.
-- State the assessment dates, exact target, scope and exclusions.
-- Include target availability limitations.
-- Separate confirmed findings from pending observations.
-- Include impact, evidence, confidence and remediation for each confirmed finding.
-- Remove secrets, session identifiers and personal data from screenshots.
-- Do not claim that a scan or test was performed unless its evidence is in this repository.
+The report will describe the target, dates, scope, methods and availability limitations. I will base each result on evidence in this repository and distinguish confirmed findings from observations that still need validation. The report will include the impact and remediation for any confirmed findings, and will not claim tests that I did not perform.
 
-Suggested report sections: Executive Summary; Scope and Rules of Engagement; Methodology; Limitations; Findings; Recommendations; Conclusion; Appendix (evidence and references).
+Planned sections:
+1. Executive Summary
+2. Scope and Assessment Method
+3. Target Availability and Limitations
+4. Results and Evidence
+5. Recommendations
+6. Conclusion
+7. References and Appendix
