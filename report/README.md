@@ -1,14 +1,15 @@
 # Final Report
 
-I will place the exported assessment PDF in this directory when the review is complete.
+I will save the final PDF assessment report in this folder when I have completed the review.
 
-The report will describe the target, dates, scope, methods and availability limitations. I will base each result on evidence in this repository and distinguish confirmed findings from observations that still need validation. The report will include the impact and remediation for any confirmed findings, and will not claim tests that I did not perform.
+I will base the report on the evidence in this repository. It will describe the target, assessment dates, scope, methods and availability limitations. I will distinguish confirmed findings from observations that still need validation and include impact and remediation where the evidence supports them.
 
-Planned sections:
+## Planned report sections
+
 1. Executive Summary
 2. Scope and Assessment Method
 3. Target Availability and Limitations
-4. Results and Evidence
+4. Results and Supporting Evidence
 5. Recommendations
 6. Conclusion
 7. References and Appendix
