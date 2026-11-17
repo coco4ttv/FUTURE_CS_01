@@ -1,17 +1,20 @@
 # TLS Evidence
 
-## Current evidence
-- [Chrome certificate warning](../browser/https-certificate-warning.png) — 30 October 2026, `https://testfire.net/`, Chrome error `NET::ERR_CERT_AUTHORITY_INVALID`.
+## Evidence captured
 
-## What this establishes
+- [Chrome certificate warning](certificate-warning-2026-10-30.png) — 30 October 2026, `https://testfire.net/`, Chrome error `NET::ERR_CERT_AUTHORITY_INVALID`.
+
+## What I observed
+
 Chrome did not trust the certificate authority/chain in that browser environment at the time of capture.
 
-## What it does not establish
-The screenshot does not show the certificate subject, issuer, expiry, SANs or full chain. Do not label the certificate expired or identify a precise root cause without those details.
+The screenshot does not show the certificate subject, issuer, expiry date, SANs or full chain. I have not established whether the certificate was expired or identified the precise cause of the trust error.
 
-## Evidence still required
-- Certificate details (subject, issuer, validity and SAN)
-- Chain/trust verification result
-- OpenSSL output, if the HTTPS endpoint can be inspected safely
+## Evidence still outstanding
 
-Do not bypass the browser warning. If the TLS endpoint does not respond, record the connection error and stop.
+I have not yet saved:
+- Certificate subject, issuer, validity dates and SANs
+- Certificate-chain/trust verification result
+- OpenSSL certificate inspection output
+
+I did not bypass the browser warning.
