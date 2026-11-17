@@ -1,7 +1,7 @@
 # TLS Evidence
 
 ## Current evidence
-- [Chrome certificate warning — 30 October 2026](certificate-warning-2026-10-30.png) — `https://testfire.net/`, Chrome error `NET::ERR_CERT_AUTHORITY_INVALID`.
+- [Chrome certificate warning](../browser/https-certificate-warning.png) — 30 October 2026, `https://testfire.net/`, Chrome error `NET::ERR_CERT_AUTHORITY_INVALID`.
 
 ## What this establishes
 Chrome did not trust the certificate authority/chain in that browser environment at the time of capture.
