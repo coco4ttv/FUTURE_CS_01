@@ -1,87 +1,74 @@
 # Future Interns — Task 1: Read-Only Vulnerability Assessment
 
-> **Project status:** In progress. Preliminary browser observations are documented; the target's current availability is inconsistent and further testing is paused until reachability is confirmed.
+> **Project status:** In progress — historical HTTP response evidence is available, but the hosted target is intermittent and HTTPS trust failed in the supplied browser capture. No vulnerability is marked confirmed yet.
 
 ## Overview
+A read-only assessment of **Altoro Mutual (AltoroJ / Testfire)**, HCL's deliberately vulnerable sample banking application.
 
-This project documents a cautious, read-only security assessment of **Altoro Mutual (Testfire)**, HCL's intentionally vulnerable sample banking application. The objective is to identify and explain evidence-backed security observations, assess their potential impact, and recommend practical remediation.
+### Target identity — keep hosts distinct
+- **Originally observed host:** `testfire.net` (screenshots show `http://testfire.net/`)
+- **OWASP-listed online demo:** `demo.testfire.net` (`https://demo.testfire.net/`)
+- **Application:** AltoroJ / Altoro Mutual
+- **Assessment type:** Read-only manual review and passive observation
+- **Evidence dates:** 30 October and 8 November 2026; fresh reachability still needs checking.
 
-- **Target:** https://demo.testfire.net/ (historical entry point: http://testfire.net/)
-- **Application:** AltoroJ / Altoro Mutual demonstration application
-- **Assessment type:** Read-only, manual review and passive observation
-- **Status:** Preliminary evidence captured; availability and remaining checks require re-validation
-- **Assessment evidence date:** 30 October 2026
+Do not assume `testfire.net` and `demo.testfire.net` have identical current behaviour. Record the exact hostname and scheme for every test.
 
 ## Scope and safety
+**In scope:** public non-authenticated pages, ordinary browser GET requests, HTTP/HTTPS redirect behaviour, response headers, redacted cookie attributes, TLS certificate details and OWASP ZAP passive observation of manually browsed pages only.
 
-### In scope
-- Publicly accessible, non-authenticated pages only
-- Ordinary browser-generated page requests
-- Response headers and redirect behaviour
-- TLS certificate details and trust-chain observations
-- Cookie security attributes, with cookie values and session identifiers redacted
-- OWASP ZAP **passive mode only**, observing manually browsed public pages if the target is reachable
+**Out of scope:** login attempts, account access, transactions, form submissions, API probing, crawling, spidering, fuzzing, ZAP active scanning, Nmap port/service scanning, exploitation, brute force and denial-of-service.
 
-### Out of scope
-- Login attempts, account access, transactions or form submissions
-- API probing, crawling, spidering or fuzzing
-- ZAP active scanning or attack features
-- Nmap port/service scanning
-- Exploitation, brute force, denial-of-service or any intrusive testing
-- Any action that could affect service availability or access private data
-
-Only perform checks that remain within this documented scope. Do not bypass browser certificate warnings or submit credentials.
+Do not bypass certificate warnings, submit credentials or proceed through an unsafe-site interstitial.
 
 ## Repository guide
-
 | Directory | Purpose |
 |---|---|
-| `methodology/` | Scope, approach and tool notes |
-| `evidence/browser/` | Browser screenshots from the initial observation |
-| `evidence/tls/` | TLS certificate evidence, when collected |
-| `evidence/headers/` | Sanitised response-header evidence |
+| `methodology/` | Scope, testing approach and tools |
+| `evidence/browser/` | General browser screenshots |
+| `evidence/tls/` | Certificate and TLS evidence |
+| `evidence/headers/` | HTTP response-header evidence |
 | `evidence/zap/` | Passive ZAP evidence only |
 | `findings/` | Observations, validation status and remediation |
-| `report/` | Final assessment report |
-| `references/` | Technical references used in the assessment |
+| `report/` | Final PDF report |
+| `references/` | Technical references |
 
-## Current observations
+## Evidence captured so far
+- **30 October 2026 — HTTP:** Chrome DevTools records `GET http://testfire.net/` returning `200 OK` from `65.61.137.117:80`. It shows `Apache-Coyote/1.1`, HTML content type, chunked transfer encoding and a JSESSIONID cookie with HttpOnly and Path attributes visible.
+- **30 October 2026 — HTTPS:** Chrome displayed `NET::ERR_CERT_AUTHORITY_INVALID` for `https://testfire.net/`. This establishes a trust error in that browser environment, not expiry or the precise cause.
+- **8 November 2026 — HTTP:** Firefox DevTools records another `200 OK` for `http://testfire.net/` from `65.61.137.117:80`. Its response-header panel shows Content-Type, Date, Server and Transfer-Encoding.
+- The Firefox capture does not show common security response headers such as CSP or X-Frame-Options. Treat them as **not evidenced in this capture**, not proven absent from every response or route.
 
-The initial browser evidence records an HTTP 200 response for the homepage and a Chrome HTTPS certificate warning. These are **preliminary observations**, not a complete or independently revalidated assessment. The certificate warning alone does not establish whether a certificate is expired, misissued or otherwise invalid; inspect certificate details before making that claim.
+See [Evidence Index](evidence/README.md), [TLS notes](evidence/tls/README.md), [Headers notes](evidence/headers/README.md), [Initial observations](findings/initial-observations-2026-10-30.md) and [Findings Register](findings/findings-register.md).
 
-See:
-- [Initial observations](findings/initial-observations-2026-10-30.md)
-- [Findings register](findings/findings-register.md)
-- [Evidence index](evidence/README.md)
+## Target availability — 17 November 2026
+Availability reports are mixed. An external checker recorded no HTTP 200 response from `demo.testfire.net` on 16 November, while the application's status endpoint currently returns `HostStatus: OK`. OWASP ZAP warns that the online AltoroJ demo may be unavailable or broken and recommends a local deployment for consistent testing. These signals do not prove that the originally observed `testfire.net` host is down from every network.
 
-## Target availability note
+Sources: [external availability check](https://www.websitedown.info/demo.testfire.net), [application status endpoint](https://demo.testfire.net/util/serverStatusCheckService.jsp), [OWASP ZAP AltoroJ notes](https://www.zaproxy.org/docs/testapps/altoroj/).
 
-The demo has a history of intermittent availability. On 17 November 2026, public status sources returned mixed signals: an external checker reported no successful HTTP 200 response for the demo host on 16 November, while the application's own status endpoint returned `HostStatus: OK`. This does **not** establish that the public homepage is consistently reachable from every network. Record your own timestamped connection result before resuming the assessment.
+**Conclusion:** hosted availability is intermittent/uncertain. The supplied 8 November screenshot proves the original HTTP host responded at that time, not that it responds now. Before resuming, visit each intended hostname once and record timestamp, scheme, hostname, final URL and exact result. Do not keep retrying a failing service.
 
-If the hosted demo remains unavailable, do not silently substitute another target or present a local lab as the hosted target. A locally deployed AltoroJ instance may be used as a separately labelled assessment, with its own scope and evidence.
+If the online demo remains unavailable, a local AltoroJ deployment can be a separate assessment target. Label it clearly and keep its evidence separate.
 
-## Workflow and deliverables
+## Workflow
+1. Confirm exact target hostname and reachability; record timestamp and result.
+2. Review only public pages and ordinary browser GET requests.
+3. Capture HTTP redirects and complete response headers.
+4. Inspect TLS certificate details only if the HTTPS connection can be examined safely; do not bypass warnings.
+5. If reachable, observe manually browsed traffic with ZAP passive mode only.
+6. Record observations with evidence, impact, confidence, validation status and remediation.
+7. Produce a concise PDF report and review it for unsupported claims and exposed secrets.
 
-1. Confirm target reachability and record date/time, requested URL, final URL and response/error.
-2. Review only public pages and ordinary browser requests.
-3. Capture relevant headers and TLS certificate details without bypassing warnings.
-4. If reachable, observe manually browsed traffic with ZAP passive mode only.
-5. Record each observation with evidence, impact, confidence, validation status and remediation.
-6. Separate confirmed findings from unverified leads and environmental limitations.
-7. Produce a concise PDF report and perform a final privacy/scope review.
-
-- [ ] Recheck target availability and record exact result
-- [ ] Validate HTTP/HTTPS behaviour and redirects
-- [ ] Capture TLS certificate subject, issuer, validity, SANs and chain result
-- [ ] Capture relevant response headers and redacted cookie attributes
-- [ ] Capture ZAP passive observations, if target is reachable
-- [ ] Complete findings register and remediation
+- [ ] Recheck `testfire.net` and `demo.testfire.net` separately
+- [ ] Validate HTTP-to-HTTPS redirect behaviour
+- [ ] Capture certificate subject, issuer, validity, SANs and chain result
+- [ ] Capture complete response headers and redacted cookie attributes
+- [ ] Capture ZAP passive observations, if reachable
+- [ ] Validate and prioritise findings
 - [ ] Export and review final PDF report
 
 ## Evidence handling
-
-Never commit passwords, authentication tokens, session-cookie values, personal data or unredacted browser storage. Keep screenshots tightly cropped to the relevant evidence. Label dates and distinguish original observations from later re-tests.
+Never commit passwords, authentication tokens, session-cookie values, personal data or unredacted browser storage. Redact cookie values in request/response screenshots. Use consistent names such as `http-response-headers-YYYY-MM-DD.png`.
 
 ## Disclaimer
-
-This is an educational assessment of a deliberately vulnerable demonstration application, not a real banking service. Results apply only to the target, time, scope and methods documented. No finding should be described as confirmed without reproducible supporting evidence. Absence of findings does not demonstrate that the application is secure.
+This is an educational assessment of a deliberately vulnerable demonstration application, not a real banking service. Results apply only to the host, time, scope and methods documented. No finding should be described as confirmed without reproducible supporting evidence. Absence of findings does not demonstrate that the application is secure.
