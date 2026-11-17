@@ -1,19 +1,16 @@
 # Assessment Scope
 
 ## Target
-Altoro Mutual (AltoroJ), the HCL-published demonstration application at https://demo.testfire.net/.
+I initially reviewed the public Altoro Mutual demonstration site at `testfire.net`. OWASP's AltoroJ page also identifies `demo.testfire.net` as its online demo. My screenshots in this repository show requests to `testfire.net`; I have kept the two hostnames separate in my notes.
 
-## Authorised scope for this project
-- Public, non-authenticated pages only.
-- Normal browser navigation and the requests it naturally generates.
-- Read-only observation of HTTP response behaviour, headers, TLS certificate information, cookies and client-side resources.
-- OWASP ZAP passive observation of manually browsed pages only, if the target is reachable.
+## What I included
+I limited the assessment to public pages that did not require authentication. I reviewed normal browser requests and observed HTTP responses, response headers, TLS certificate warnings, cookies and client-side resources. Where available, I used OWASP ZAP for passive observation of pages I browsed manually.
 
-## Explicit exclusions
-No login attempts, credential use, account access, transactions, form submissions, API probing, crawling, spidering, fuzzing, active scanning, Nmap port/service scanning, exploitation, brute force or denial-of-service testing.
+## What I did not test
+I did not attempt logins, use credentials, access accounts, make transactions, submit forms, probe APIs, crawl or spider the site, fuzz inputs, run active scans, run Nmap port/service scans, exploit vulnerabilities, brute-force accounts or perform denial-of-service testing.
 
-## Stop conditions
-Stop if the site is unavailable, redirects to an unexpected destination, presents a certificate warning, or a check would require interaction beyond the scope above. Do not bypass certificate warnings. Record availability failures as limitations, not vulnerabilities.
+## Scope limitations
+I stopped at the browser's certificate warning rather than bypassing it. When the hosted site was unavailable, I recorded that as a limitation rather than treating downtime as a vulnerability. I have not treated a different hostname or a local installation as the same target; any such work is recorded separately.
 
-## Evidence standard
-Every finding must include the affected URL, timestamp, method, observed result, evidence reference, impact rationale, confidence and validation status. Distinguish confirmed findings from hypotheses and unverified leads. Redact session identifiers, cookies, tokens and personal data before committing evidence.
+## How I recorded observations
+For each observation, I recorded the URL, date and time, request method, result and supporting evidence where available. I separated what the screenshots directly show from anything that still needs validation. I removed or redacted session identifiers and other sensitive values from evidence intended for public sharing.
