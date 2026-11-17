@@ -1,67 +1,61 @@
-# Initial Observations — 30 October 2026
+# Initial Observations — 30 October and 8 November 2026
 
-**Status:** Preliminary browser observations. Not independently revalidated. No vulnerability is confirmed by this note alone.
+**Status:** Historical browser observations. They are not a current availability test and do not establish confirmed vulnerabilities.
 
-## 1. HTTP homepage response
+## 1. HTTP homepage response — 30 October 2026
 
-**Evidence:** [HTTP homepage and response headers](../evidence/browser/HTTP%20homepage%20and%20response%20headers.jpeg)
+**Evidence:** [Chrome HTTP homepage and response headers](../evidence/browser/HTTP%20homepage%20and%20response%20headers.jpeg)
 
-The supplied Chrome DevTools screenshot records the following for the homepage request:
-
+The supplied Chrome DevTools screenshot records:
 - Requested URL: `http://testfire.net/`
 - Method: `GET`
 - Status: `200 OK`
-- Remote address shown: `65.61.137.117:80`
-- Referrer-Policy: `strict-origin-when-cross-origin`
-- Content-Type: `text/html; charset=ISO-8859-1`
-- Server header: `Apache-Coyote/1.1`
-- A `JSESSIONID` Set-Cookie response was visible with `HttpOnly` and `Path=/`.
+- Remote address: `65.61.137.117:80`
+- Response Content-Type: `text/html; charset=ISO-8859-1`
+- Server: `Apache-Coyote/1.1`
+- Transfer-Encoding: `chunked`
+- A `JSESSIONID` cookie with `HttpOnly` and `Path=/` visible.
 
-The screenshot's cookie value is redacted. The supplied capture does not establish whether `Secure` or `SameSite` was present. Re-capture the full Set-Cookie attributes with the value removed before drawing a conclusion.
+The Chrome General panel also shows a Referrer Policy value. That panel value is not, by itself, proof that a `Referrer-Policy` response header was sent. Do not record it as a confirmed response header based on this screenshot.
 
-### Interpretation and limitations
+**Privacy:** Check the original screenshot before public reuse. If the JSESSIONID value is readable, redact it and replace the public copy. Never publish a live session identifier.
 
-- `200 OK` confirms only that this particular HTTP request received a successful response at the time of capture.
-- The page was requested over HTTP, which is unencrypted in transit. Re-test whether the host redirects HTTP to HTTPS before documenting the site's current behaviour.
-- `Apache-Coyote/1.1` is the observed header value; it does not, by itself, identify a specific vulnerable version.
-- Do not generalise one response's headers to every route or page.
+## 2. HTTPS certificate warning — 30 October 2026
 
-## 2. HTTPS certificate warning
+**Evidence:** [Chrome HTTPS certificate warning](../evidence/browser/https-certificate-warning.png)
 
-**Evidence:** [HTTPS certificate warning](../evidence/browser/https-certificate-warning.png)
+Chrome displayed “Your connection is not private” and `NET::ERR_CERT_AUTHORITY_INVALID` for `https://testfire.net/`. The page states that the certificate was not trusted by the computer's operating system.
 
-Chrome displayed “Your connection is not private” with error code `NET::ERR_CERT_AUTHORITY_INVALID`.
+This supports the observation that Chrome did not trust the certificate authority/chain in that browser environment at that time. It does **not** prove that the certificate was expired. The certificate subject, issuer, validity dates, SANs and chain verification result have not been captured.
 
-### Interpretation and limitations
+Do not bypass the warning or proceed through the unsafe-site interstitial.
 
-This records that Chrome did not trust the certificate authority/chain in that browsing environment. It does not, by itself, prove that the certificate was expired. The certificate subject, issuer, validity dates, subject alternative names and chain verification result must be inspected before classifying this as a finding.
+## 3. HTTP response — 8 November 2026
 
-Do not bypass the warning or proceed through an unsafe-site interstitial.
+**Evidence:** [Firefox browser check](../evidence/browser/firefox_browser_check_2026-11-08%20210612.png)
 
-## 3. Candidate checks — not confirmed findings
+The Firefox DevTools screenshot records:
+- Host: `testfire.net`
+- Filename: `/`
+- Address: `65.61.137.117:80`
+- Status: `200 OK`
+- Protocol: `HTTP/1.1`
+- Response headers shown: `Content-Type`, `Date`, `Server`, `Transfer-Encoding`.
 
-| Area | What must be verified |
-|---|---|
-| HTTP transport | Current HTTP response and redirect behaviour, without submitting data |
-| TLS | Certificate subject, issuer, validity, hostname/SAN match and chain result |
-| Security headers | Complete response headers for relevant public HTML responses |
-| Server banner | Whether the observed banner is current and whether it discloses meaningful version detail |
-| Cookies | Secure, HttpOnly and SameSite attributes, with cookie value redacted |
-| Client-side resources | Whether relevant third-party resources are used and whether integrity controls are applicable |
+The raw response-header screenshot supplied separately records the same four headers. It does not show CSP, X-Frame-Options, X-Content-Type-Options, HSTS or other common security headers. Because the capture is historical and may not show every response or route, treat those headers as **not evidenced in this capture**, pending a fresh full-header capture.
 
-## 4. Next steps
+## 4. What can and cannot be concluded
+- The hosted HTTP page responded with `200 OK` on 30 October and again on 8 November 2026.
+- The supplied HTTPS attempt produced a certificate-authority trust warning on 30 October.
+- These screenshots do not tell us whether the site is reachable today.
+- A certificate warning alone does not establish expiry, hostname mismatch or a specific certificate misconfiguration.
+- A generic `Apache-Coyote/1.1` banner does not prove a vulnerable server version.
+- A header not visible in a partial screenshot is not automatically proven absent.
+- An unavailable target is an assessment limitation, not a vulnerability.
 
-1. Check whether the public demo is reachable and record the exact timestamp, URL and error/status.
-2. If reachable, inspect TLS certificate details without bypassing browser warnings.
-3. Capture relevant response headers and cookie attributes with secrets redacted.
-4. If reachable, browse public pages manually with OWASP ZAP passive mode only.
+## 5. Next steps
+1. Check `testfire.net` and `demo.testfire.net` separately; record the exact host and scheme.
+2. If HTTP responds, capture redirect behaviour and complete response headers from one normal public GET.
+3. If HTTPS is safely inspectable, record certificate subject, issuer, validity, SANs and chain result. Do not bypass browser warnings.
+4. Redact session identifiers from all screenshots and text files.
 5. Update the findings register only when evidence supports a conclusion.
-
-## 5. Scope and limitations
-
-- Nmap port/service scanning is excluded and was not performed.
-- No ZAP active scan, spider, crawler, API probing, login attempt, form submission, exploitation, brute force or denial-of-service test is documented here.
-- These observations are based on the original supplied browser captures and have not been independently reproduced in this note.
-- The TLS chain, complete response-header set and cookie attributes require further validation.
-- An unavailable target is an assessment limitation, not itself a vulnerability finding.
-- Absence of a finding does not prove the website is secure.
