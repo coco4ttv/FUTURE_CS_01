@@ -1,20 +1,20 @@
 # Evidence Index
 
-Evidence is grouped by the type of check. Record the exact hostname, scheme and capture time for every item. Sanitise screenshots before committing them.
+I have grouped the screenshots and notes by the type of evidence they contain. The dates below are the dates shown in the captures.
 
 ## Browser
-- [Chrome HTTP homepage and response headers](browser/HTTP%20homepage%20and%20response%20headers.jpeg) — 30 October 2026; `GET http://testfire.net/`, `200 OK`, remote address `65.61.137.117:80`.
-- [Firefox HTTP browser check](browser/firefox_browser_check_2026-11-08%20210612.png) — 8 November 2026; Firefox DevTools shows `GET http://testfire.net/`, `200 OK`, remote address `65.61.137.117:80`, and four response headers.
-- [HTTPS certificate warning](browser/https-certificate-warning.png) — 30 October 2026; Chrome displayed `NET::ERR_CERT_AUTHORITY_INVALID` for `https://testfire.net/`.
+- [Chrome HTTP homepage and response headers](browser/chrome_2026-10-30%20183814.png) — 30 October 2026; Chrome DevTools shows `GET http://testfire.net/`, `200 OK`, remote address `65.61.137.117:80`.
+- [Firefox HTTP browser check](browser/firefox-http-response-2026-11-08.png) — 8 November 2026; Firefox DevTools shows `GET http://testfire.net/`, `200 OK`, remote address `65.61.137.117:80`, and four response headers.
+- [HTTPS certificate warning](tls/certificate-warning-2026-10-30.png) — 30 October 2026; Chrome displayed `NET::ERR_CERT_AUTHORITY_INVALID` for `https://testfire.net/`.
 
 ## TLS
-See [TLS evidence notes](tls/README.md). The current evidence is a browser trust warning only; no certificate export, chain validation or OpenSSL output has been captured.
+See [TLS evidence notes](tls/README.md). So far, I have captured the browser trust warning. I have not saved a certificate export, chain validation result or OpenSSL output.
 
 ## HTTP headers
-See [HTTP header evidence notes](headers/README.md). The browser captures show selected response headers, not a complete audit of every route or header.
+See [HTTP header evidence notes](headers/README.md). The screenshots show the response-header fields visible in DevTools; I have not yet completed a full security-header review.
 
 ## ZAP
-The `zap/` directory is reserved for passive-mode evidence. No ZAP evidence is currently recorded.
+I have not added ZAP evidence yet. I will add it here if I complete passive observation during manual browsing.
 
 ## Evidence handling
-Never publish passwords, authentication tokens, session-cookie values, personal data or browser storage. Check the 30 October Chrome screenshot for visible session-cookie material before public reuse; if the JSESSIONID value is readable, replace it with a redacted copy.
+Before sharing screenshots publicly, I check that session identifiers, cookie values, authentication tokens and personal data are not readable. The Chrome capture includes a Set-Cookie/JSESSIONID response; I need to ensure its value is redacted in the public image.
