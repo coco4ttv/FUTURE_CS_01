@@ -2,28 +2,38 @@
 
 ## Work completed
 
-I used normal browser navigation to review the public homepage and its HTTP response. I captured the browser's Network/Headers details without submitting forms or interacting with account features.
+The assessment used normal browser navigation to publicly accessible Testfire pages and passive observation through OWASP ZAP.
 
+### Historical browser checks
 - On 30 October 2026, Chrome showed a `200 OK` response for `GET http://testfire.net/`.
-- On 30 October 2026, Chrome displayed `NET::ERR_CERT_AUTHORITY_INVALID` when I opened `https://testfire.net/`. I recorded the warning and did not bypass it.
-- On 8 November 2026, Firefox showed another `200 OK` response for `GET http://testfire.net/`. I captured the response headers visible in DevTools.
+- On 30 October 2026, Chrome displayed `NET::ERR_CERT_AUTHORITY_INVALID` for `https://testfire.net/`. The warning was recorded and not bypassed.
+- On 8 November 2026, Firefox showed another `200 OK` response for `GET http://testfire.net/`.
 
-I have not yet captured a complete TLS certificate chain, a complete set of security response headers or OWASP ZAP passive results. Those parts of my assessment remain unfinished.
+### OWASP ZAP passive review — 22 November 2026
+- ZAP was set to **Safe Mode**.
+- Firefox was launched through ZAP and used to browse public-facing Testfire pages.
+- The Sites tree was reviewed to identify the host and paths observed by the browser.
+- The History panel was reviewed for normal browser-generated requests and response codes.
+- The homepage response was inspected for status, server banner, content type and cookie attributes. The session cookie value was redacted in the saved screenshot.
+- The Alerts panel was reviewed for passive observations and their ZAP risk/confidence values.
 
-## Checks used in my review
+The History screenshot shows the homepage request returning `200 OK` and other browser-generated requests. It also contains some `404` and third-party `502` responses; these were not treated as vulnerabilities.
 
-When the target was available, I used normal browser requests to:
-1. Open the public homepage and record the URL, response status and time.
-2. Observe the HTTP response and any redirect behaviour.
-3. Review the browser's TLS/certificate result.
-4. Inspect response headers from ordinary public-page requests.
-5. Review cookie attributes visible in the response without recording cookie values.
-6. Observe manually browsed public pages with OWASP ZAP passive mode, if available.
+## Checks used
 
-I did not spider, crawl, fuzz or run an active scan.
+1. Open publicly accessible pages using normal browser navigation.
+2. Record the requested hostname, URL, method, status and date where visible.
+3. Inspect response headers and cookie attributes.
+4. Observe browser-generated requests with ZAP Safe Mode enabled.
+5. Review ZAP passive alert details and confidence.
+6. Record evidence, limitations and remediation recommendations.
 
-## Availability limitations
+## Actions not performed
 
-The hosted demo has been intermittent. When a request failed, I recorded the error and date rather than interpreting the failure as a security weakness. My historical screenshots show that `testfire.net` responded over HTTP on 30 October and 8 November 2026; they do not establish its current availability.
+No login bypass, credential use, form submission, transaction, exploitation, attack payload, brute-force attempt, DoS testing, ZAP Active Scan, automated attack scan, spidering, crawling, fuzzing or Nmap port/service scan was performed.
 
-If I continue with a local AltoroJ installation, I will identify it as a separate target and keep its results distinct from the hosted-site evidence.
+## Scope limitations
+
+The third-party hostnames appearing in ZAP were loaded or referenced during normal page browsing; they were not independently assessed. A passive alert is an indicator, not proof of exploitability. Where evidence or confidence was insufficient, the item was recorded as unconfirmed or excluded.
+
+The local AltoroJ Docker practice instance was kept separate from the hosted Testfire target and was not used as evidence for this assessment.

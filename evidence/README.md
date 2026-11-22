@@ -1,20 +1,25 @@
 # Evidence Index
 
-I have grouped my screenshots and notes by the type of evidence they contain. The dates below are the dates shown in the captures.
+This directory contains screenshots and notes grouped by evidence type. The capture dates are taken from the supplied screenshots where visible.
 
 ## Browser
-- [Chrome HTTP homepage and response headers](browser/chrome_2026-10-30%20183814.png) — 30 October 2026; Chrome DevTools shows `GET http://testfire.net/`, `200 OK`, remote address `65.61.137.117:80`.
-- [Firefox HTTP browser check](browser/firefox-http-response-2026-11-08.png) — 8 November 2026; Firefox DevTools shows `GET http://testfire.net/`, `200 OK`, remote address `65.61.137.117:80`, and four response headers.
-- [HTTPS certificate warning](tls/certificate-warning-2026-10-30.png) — 30 October 2026; Chrome displayed `NET::ERR_CERT_AUTHORITY_INVALID` for `https://testfire.net/`.
+- [Chrome HTTP homepage and response headers](browser/chrome_2026-10-30%20183814.png) — 30 October 2026; Chrome DevTools shows `GET http://testfire.net/`, `200 OK`.
+- [Firefox HTTP browser check](browser/firefox-http-response-2026-11-08.png) — 8 November 2026; Firefox DevTools shows `GET http://testfire.net/`, `200 OK`.
+- [HTTPS certificate warning](tls/certificate-warning-2026-10-30.png) — 30 October 2026; Chrome displayed `NET::ERR_CERT_AUTHORITY_INVALID`. This is retained as a historical browser observation, not a confirmed certificate finding.
 
 ## TLS
-See [TLS evidence notes](tls/README.md). So far, I have captured the browser trust warning. I have not saved a certificate export, chain validation result or OpenSSL output.
+See [TLS evidence notes](tls/README.md). The browser trust warning does not, by itself, establish certificate expiry or the precise cause of the trust failure.
 
 ## HTTP headers
-See [HTTP header evidence notes](headers/README.md). My screenshots show the response-header fields visible in DevTools; I have not yet completed a full security-header review.
+See [HTTP header evidence notes](headers/README.md). The captures show selected response headers; they should not be interpreted as proof that every other security header is absent from every route.
 
-## ZAP
-I have not added ZAP evidence yet.
+## OWASP ZAP
+See the [ZAP evidence index](zap/README.md). The 22 November 2026 captures include:
+- Sites tree and History of normal browser-generated requests;
+- the homepage HTTP response, with the JSESSIONID value redacted;
+- the alert overview and selected passive alert details.
+
+ZAP showed 16 alert categories. They are not 16 confirmed vulnerabilities. The findings register distinguishes observed configuration weaknesses from low-confidence or informational alerts.
 
 ## Evidence handling
-The Chrome screenshot includes a Set-Cookie/JSESSIONID response. I am checking that the session value is not readable in the public image. A cookie value is not needed to demonstrate its attributes, so I will keep it redacted.
+Session identifiers, cookie values, authentication tokens and personal data must not be readable in screenshots or text files published in this repository. Preserve relevant status codes, URLs, alert titles, confidence and risk details.

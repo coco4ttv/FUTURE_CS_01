@@ -1,70 +1,77 @@
 # Future Interns — Task 1: Read-Only Vulnerability Assessment
 
-**Status:** In progress. I have captured two successful HTTP homepage responses and one HTTPS certificate warning. I have not completed the full assessment or confirmed a vulnerability.
+**Status:** Assessment evidence captured; findings and final report are still being prepared.
 
 ## Project overview
 
-I am assessing the public Altoro Mutual demonstration application (AltoroJ / Testfire) using read-only checks.
+This project documents a read-only security review of the public Altoro Mutual demonstration application hosted at **Testfire**.
 
-### Target details
-- **Host shown in my screenshots:** `testfire.net`
-- **Other published demo hostname:** `demo.testfire.net`
-- **Application:** AltoroJ / Altoro Mutual
-- **Assessment type:** Read-only manual review and passive observation
-- **Evidence captured:** 30 October and 8 November 2026
+| Item | Details |
+|---|---|
+| Target observed | `http://testfire.net/` |
+| Application | Altoro Mutual (AltoroJ demonstration application) |
+| Assessment type | Read-only browser review and passive security observation |
+| Latest ZAP evidence | 22 November 2026 |
+| Tools | Firefox DevTools, OWASP ZAP 2.17.0 |
+| Report | To be added after findings review and Canva export |
 
-My screenshots show requests to `testfire.net`. I have kept that separate from `demo.testfire.net` rather than assuming both hostnames behave identically.
+The hosted Testfire target is the subject of this assessment. The separate AltoroJ Docker installation on my Kali VM is a practice environment and is **not** treated as the assessed target.
 
-## Assessment scope
+## Scope and ethical boundaries
 
-I reviewed public pages that did not require authentication. My checks were limited to normal browser requests and observations of HTTP responses, response headers, TLS/certificate behaviour, cookies and client-side resources. I planned to use OWASP ZAP in passive mode while manually browsing public pages.
+The review was limited to publicly accessible pages and normal browser-generated requests. I inspected HTTP responses, response headers, cookie attributes, publicly returned page content and client-side resource references. OWASP ZAP was used in **Safe Mode** for passive observation while browsing manually.
 
-I did not attempt logins, use credentials, access accounts, make transactions, submit forms, probe APIs, crawl or spider the site, fuzz inputs, run active scans, run Nmap port/service scans, exploit vulnerabilities, brute-force accounts or perform denial-of-service testing.
+I did not:
+- attempt login bypass or unauthorised access;
+- submit login, subscription or other application forms;
+- exploit vulnerabilities or send attack payloads;
+- perform brute-force, denial-of-service or other disruptive testing;
+- run ZAP Active Scan, automated attack scans, spidering or fuzzing;
+- run Nmap port or service scans.
+
+ZAP reported a possible absence of anti-CSRF tokens in two forms based on passive HTML inspection. The forms were not submitted and the behaviour was not tested.
+
+## Assessment activity and evidence
+
+### Historical browser observations
+- **30 October 2026 — HTTP:** Chrome DevTools recorded `GET http://testfire.net/` returning `200 OK`. The response showed `Apache-Coyote/1.1` and a JSESSIONID cookie with HttpOnly and Path attributes visible.
+- **30 October 2026 — HTTPS:** Chrome displayed `NET::ERR_CERT_AUTHORITY_INVALID` for `https://testfire.net/`. This records a trust warning in that browser environment; it does not establish the exact certificate cause.
+- **8 November 2026 — HTTP:** Firefox DevTools recorded another `200 OK` response for `GET http://testfire.net/`.
+
+### OWASP ZAP passive observation — 22 November 2026
+- ZAP was visibly set to **Safe Mode**.
+- The History panel shows a normal `GET http://testfire.net/` request returning `200 OK`, along with other browser-generated page and resource requests.
+- The Sites panel shows the Testfire host and paths observed during browsing. Other hostnames also appear because pages referenced third-party resources; those hosts were not independently assessed.
+- ZAP displayed **16 alert categories**. This is a count of alert groups, **not 16 confirmed vulnerabilities**.
+- The captured alerts include missing security headers, cookie attribute observations, an external JavaScript reference without a Subresource Integrity attribute, a possible anti-CSRF-token issue and a generic internal-server-error response. Each item is treated according to its evidence and confidence in the findings register.
+
+The screenshot index is in [Evidence](evidence/README.md), with the ZAP captures listed in [OWASP ZAP Evidence](evidence/zap/README.md).
 
 ## Repository layout
 
 | Folder | Contents |
 |---|---|
-| `methodology/` | My assessment scope, approach and tools |
+| `methodology/` | Assessment scope, approach and tools |
 | `evidence/browser/` | Browser screenshots |
-| `evidence/tls/` | TLS and certificate evidence |
 | `evidence/headers/` | HTTP response-header evidence |
-| `findings/` | My observations and findings register |
-| `report/` | Final assessment report |
-| `references/` | Sources I referred to |
+| `evidence/tls/` | Earlier browser TLS/certificate evidence |
+| `evidence/zap/` | ZAP Sites, History, Response and passive alert screenshots |
+| `findings/` | Initial observations and findings register |
+| `report/` | Final assessment report when exported |
+| `references/` | Technical references |
 
-## Evidence captured
+## Findings and limitations
 
-- **30 October 2026 — HTTP:** Chrome DevTools showed `GET http://testfire.net/` returning `200 OK` from `65.61.137.117:80`. The response details included `Apache-Coyote/1.1`, an HTML content type, chunked transfer encoding and a JSESSIONID cookie with HttpOnly and Path attributes visible.
-- **30 October 2026 — HTTPS:** Chrome displayed `NET::ERR_CERT_AUTHORITY_INVALID` for `https://testfire.net/`. This shows that Chrome did not trust the certificate authority/chain in that browser environment. I have not established the precise cause or whether the certificate was expired.
-- **8 November 2026 — HTTP:** Firefox DevTools showed another `200 OK` for `GET http://testfire.net/` from `65.61.137.117:80`. The screenshot shows Content-Type, Date, Server and Transfer-Encoding in the response-header panel.
+ZAP's alerts are passive indicators. A missing response header or cookie attribute can be reported as an observed configuration weakness on the sampled response, but it does not by itself prove that an exploit is possible. Alerts with low confidence or generic error evidence are explicitly marked as unconfirmed.
 
-The screenshots and notes are listed in the [Evidence Index](evidence/README.md). My interpretations are recorded in [Initial Observations](findings/initial-observations-2026-10-30.md) and the [Findings Register](findings/findings-register.md).
+The ZAP History capture includes some non-200 responses for individual paths or external resources. These are recorded as observations only; they are not treated as vulnerabilities or as evidence that the entire site was unavailable.
 
-## Hosted target availability
-
-The hosted demo has been unreliable. An external checker reported no HTTP 200 response from `demo.testfire.net` on 16 November, while the application's status endpoint returned `HostStatus: OK`. OWASP ZAP also notes that the online AltoroJ demo may be unavailable or broken and describes a local deployment as an alternative.
-
-These checks do not prove that `testfire.net` is down from every network. My own screenshots show that `testfire.net` responded over HTTP on 30 October and 8 November; they do not establish its availability today.
-
-Sources: [external availability check](https://www.websitedown.info/demo.testfire.net), [application status endpoint](https://demo.testfire.net/util/serverStatusCheckService.jsp), [OWASP ZAP AltoroJ notes](https://www.zaproxy.org/docs/testapps/altoroj/).
-
-If I continue with a local AltoroJ installation, I will treat it as a separate target and keep its results separate from the hosted-site evidence.
-
-## Work remaining
-
-- [ ] Recheck the availability of `testfire.net` and `demo.testfire.net`
-- [ ] Record HTTP-to-HTTPS redirect behaviour
-- [ ] Capture certificate subject, issuer, validity, SANs and chain result, if available
-- [ ] Capture complete response headers and cookie attributes, with cookie values redacted
-- [ ] Complete OWASP ZAP passive observation, if the target is available
-- [ ] Validate and prioritise any findings
-- [ ] Complete and export the final PDF report
+The HSTS alert is not treated as a finding based only on the HTTP capture. HTTPS behaviour must be assessed from an appropriate HTTPS response before drawing a conclusion. The third-party hostnames visible in ZAP were not separately tested.
 
 ## Evidence handling
 
-I have kept the screenshots and notes as evidence of what I observed. Before publishing screenshots, I check that session identifiers, cookie values, authentication tokens and personal data are not readable. Cookie values are not needed to demonstrate their security attributes.
+Before public sharing, screenshots are checked for readable session identifiers, cookie values, tokens or personal data. Cookie values are not needed to demonstrate cookie security attributes and must remain redacted.
 
 ## Disclaimer
 
-This is an educational assessment of a demonstration application, not a real banking service. My observations apply only to the host, date, scope and methods recorded here. I have not marked any vulnerability as confirmed without supporting evidence.
+This is an educational, read-only assessment of a demonstration application. It is not a penetration test of a production banking service. Conclusions apply only to the target, pages, responses, date and limited methods recorded here. No exploitation or intrusive testing was performed.

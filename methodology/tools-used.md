@@ -1,11 +1,18 @@
 # Tools Used
 
-| Tool | My use |
+| Tool | Use in this assessment |
 |---|---|
-| Chrome DevTools | I captured the 30 October browser response and HTTPS certificate warning. |
-| Firefox DevTools | I captured the 8 November HTTP response and the response headers visible in the Network panel. |
-| OpenSSL | I have not saved certificate inspection output yet. I may use it if the HTTPS endpoint can be inspected safely. |
-| OWASP ZAP | I have not added passive-mode evidence yet. My planned use is limited to passive observation during manual browsing. |
-| Canva / PDF export | I plan to use Canva to format the final assessment report and export it as a PDF. |
+| Firefox | Normal navigation of publicly accessible Testfire pages |
+| Firefox Developer Tools | Inspection of browser Network requests and HTTP response details |
+| OWASP ZAP 2.17.0 | Sites, History, Response and Alerts review while in Safe Mode; passive observation only |
+| Canva | Planned report layout and PDF export |
 
-I did not use Nmap, ZAP active scanning, crawling, fuzzing or exploitation tools in this assessment.
+## Tools not used
+
+- **Nmap:** Not used. No port or service scan was performed.
+- **ZAP Active Scan / Automated Scan:** Not used.
+- **Spider, crawler or fuzzer:** Not used.
+- **Exploitation or brute-force tools:** Not used.
+- **DoS tools:** Not used.
+
+The separate Docker-hosted AltoroJ practice environment was not part of the Testfire assessment.

@@ -2,20 +2,32 @@
 
 ## Target
 
-I initially reviewed the public Altoro Mutual demonstration site at `testfire.net`. OWASP's AltoroJ documentation also identifies `demo.testfire.net` as an online demo. The screenshots in this repository show requests to `testfire.net`, so I have kept the two hostnames separate in my notes.
+The assessed target is the public Altoro Mutual demonstration application at `http://testfire.net/`. The ZAP evidence captured on 22 November 2026 records requests to this hostname.
 
-## What I included
+The ZAP Sites tree also contains third-party hostnames referenced by the application, including an analytics hostname. These hosts were not independently assessed and are not included as targets.
 
-I limited my review to public pages that did not require authentication. I used normal browser navigation and observed HTTP responses, response headers, TLS certificate behaviour, cookies and client-side resources. I also planned passive observation with OWASP ZAP while manually browsing public pages.
+The separate AltoroJ Docker practice installation on Kali is not part of this hosted Testfire assessment.
 
-## What I did not test
+## Included
 
-I did not attempt logins, use credentials, access accounts, make transactions, submit forms, probe APIs, crawl or spider the site, fuzz inputs, run active scans, run Nmap port/service scans, exploit vulnerabilities, brute-force accounts or perform denial-of-service testing.
+- Public-facing pages accessed through normal browser navigation.
+- Passive observation of browser-generated HTTP requests and responses using OWASP ZAP in Safe Mode.
+- Review of response headers, cookie attributes and publicly returned page/resource references.
+- Review of ZAP passive alert descriptions, risk ratings and confidence.
+
+## Excluded
+
+- Login bypass, unauthorised access or use of credentials.
+- Submitting login, subscription, transaction or other application forms.
+- Exploitation, attack payloads, brute force or denial-of-service testing.
+- ZAP Active Scan, automated attack scans, spidering, crawling or fuzzing.
+- Nmap port or service scans.
+- Independent testing of third-party hosts shown in the Sites tree.
 
 ## Scope limitations
 
-I did not bypass the browser's certificate warning. When the hosted site was unavailable, I recorded that as a limitation rather than treating downtime as a vulnerability. I have not treated a different hostname or a local installation as the same target; any such work will be recorded separately.
+Passive alerts are indicators and do not establish exploitability. The absence of an anti-CSRF token in observed form markup was reported with low confidence and was not verified through form submission or request-behaviour testing. A generic internal server error was not treated as confirmed sensitive information disclosure.
 
-## Recording observations
+The HSTS alert was not included as a finding based only on the HTTP response capture. HTTPS behaviour requires a suitable HTTPS response for assessment.
 
-I recorded the URL, date and time, request method, result and supporting evidence where available. I separated what the screenshots directly show from anything that still needs validation. I have redacted session identifiers and other sensitive values from evidence intended for public sharing.
+All observations apply only to the sampled public pages and responses captured on the dates recorded in the evidence index.
