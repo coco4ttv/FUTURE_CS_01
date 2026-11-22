@@ -1,6 +1,6 @@
 # Future Interns — Task 1: Read-Only Vulnerability Assessment
 
-**Status:** Assessment and nine-page report drafted. Final PDF upload to this repository remains pending.
+**Status:** Read-only assessment completed; nine-page report prepared. PDF is ready for repository upload.
 
 ## Project overview
 
@@ -13,7 +13,9 @@ This project documents a limited read-only security review of the public Altoro 
 | Assessment type | Read-only browser review and passive security observation |
 | Evidence dates | 30 October, 8 November and 22 November 2026 |
 | Tools | Chrome/Firefox Developer Tools, OWASP ZAP 2.17.0 |
-| Report | Nine-page Canva report; PDF prepared for final repository upload |
+| Report | Nine-page Canva report and PDF |
+
+**Canva report:** https://www.canva.com/d/QaO7S9C3HdCNRsj
 
 The hosted Testfire target is the subject of this assessment. The separate AltoroJ Docker installation on Kali is a practice environment and is **not** treated as the assessed target.
 
@@ -57,6 +59,14 @@ Six candidate configuration observations are prioritised for remediation: CSP, a
 The HTTPS certificate trust warning is recorded separately as an observation with medium investigation priority; its root cause is unconfirmed. The anti-CSRF and generic internal-server-error alerts are also not treated as confirmed vulnerabilities.
 
 The report explains what each issue means in plain English, its potential business impact, proposed priority and recommended remediation. It references OWASP guidance and MDN documentation.
+
+## Repository report file
+
+The final PDF is ready to be added at:
+
+`report/FUTURE_CS_01_Vulnerability_Assessment_Report.pdf`
+
+The Canva design is the editable master; the exported PDF is the submission copy.
 
 ## Disclaimer
 
