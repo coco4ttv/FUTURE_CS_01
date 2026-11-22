@@ -19,10 +19,11 @@ I used OWASP ZAP while manually browsing publicly accessible Testfire pages. The
 | [07-anti-clickjacking-header-alert.png](07-anti-clickjacking-header-alert.png) | Missing anti-clickjacking protection alert |
 | [08-subresource-integrity-alert.png](08-subresource-integrity-alert.png) | External script reference without an integrity attribute |
 | [09-samesite-cookie-alert.png](09-samesite-cookie-alert.png) | JSESSIONID cookie reported without a SameSite attribute |
-| [10-cross-domain-javascript-alert.png](10-cross-domain-javascript-alert.png) | Cross-domain JavaScript source reference; this is related to the external-script/SRI observation |
-| [11-debug-error-message-alert.png](11-debug-error-message-alert.png) | Generic `Internal server error` response flagged by ZAP |
-| [12-server-banner-disclosure-alert.png](12-server-banner-disclosure-alert.png) | `Server: Apache-Coyote/1.1` response header |
-| [13-x-content-type-options-alert.png](13-x-content-type-options-alert.png) | Missing `X-Content-Type-Options: nosniff` alert |
+| [10-cross-domain-javascript-alert.png](10-cross-domain-javascript-alert.png) | Cross-domain JavaScript source reference; related to the external-script/SRI observation |
+| [11-debug-error-message-alert.png](11-debug-error-message-alert.png) | Full ZAP alert view for a generic `Internal server error` response |
+| [12-debug-error-message-detail.png](12-debug-error-message-detail.png) | Closer detail view of the same generic error alert |
+| [13-server-header-disclosure-alert.png](13-server-header-disclosure-alert.png) | `Server: Apache-Coyote/1.1` response header |
+| [14-x-content-type-options-alert.png](14-x-content-type-options-alert.png) | Missing `X-Content-Type-Options: nosniff` alert |
 
 ## What the captures establish
 
@@ -31,7 +32,7 @@ I used OWASP ZAP while manually browsing publicly accessible Testfire pages. The
 - The homepage response shows `HTTP/1.1 200 OK`, `Server: Apache-Coyote/1.1`, `Content-Type: text/html; charset=ISO-8859-1` and a redacted `Set-Cookie` value with `Path=/` and `HttpOnly`.
 - The alert overview contains 16 categories. Technology detections and informational alerts are not automatically vulnerabilities.
 - The external JavaScript evidence references `http://demo-analytics.testfire.net/urchin.js`. ZAP History shows a failed response for that external request in this capture, so successful script delivery was not established.
-- The debug-error screenshot shows only the generic text `Internal server error`; it does not show a stack trace, file path, database details or other sensitive diagnostic data.
+- The debug-error screenshots show only the generic text `Internal server error`; they do not show a stack trace, file path, database details or other sensitive diagnostic data.
 
 ## Interpretation limits
 

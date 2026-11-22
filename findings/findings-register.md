@@ -52,14 +52,14 @@ ZAP reported that the JSESSIONID cookie was set without a SameSite attribute. Th
 **Recommendation:** Set an appropriate `SameSite=Lax` or `SameSite=Strict` attribute based on application requirements. Review the use of `Secure` and ensure session cookies are only transmitted over HTTPS.
 
 ### F-05 — Server banner disclosure
-**Evidence:** [ZAP server-header alert](../evidence/zap/12-server-banner-disclosure-alert.png) and [homepage HTTP response](../evidence/zap/04-homepage-http-response.png)
+**Evidence:** [ZAP server-header alert](../evidence/zap/13-server-header-disclosure-alert.png) and [homepage HTTP response](../evidence/zap/04-homepage-http-response.png)
 
 The response includes `Server: Apache-Coyote/1.1`. This reveals a server technology identifier. It does not establish a specific software release or prove that the server is vulnerable.
 
 **Recommendation:** Configure the server or application gateway to suppress the banner or return a generic value. Keep server components patched and maintained.
 
 ### F-06 — X-Content-Type-Options header missing
-**Evidence:** [ZAP X-Content-Type-Options alert](../evidence/zap/13-x-content-type-options-alert.png)
+**Evidence:** [ZAP X-Content-Type-Options alert](../evidence/zap/14-x-content-type-options-alert.png)
 
 ZAP reported that the observed CSS response did not set `X-Content-Type-Options: nosniff`.
 
@@ -75,9 +75,9 @@ ZAP did not identify a recognised anti-CSRF token in the inspected login and sub
 **Recommended follow-up for an authorised, separately scoped review:** Confirm the application's intended CSRF protection design and validate it only with explicit authorisation. For this read-only assessment, retain the observation as unverified.
 
 ### O-02 — Generic internal server error
-**Evidence:** [ZAP debug-error alert](../evidence/zap/11-debug-error-message-alert.png)
+**Evidence:** [ZAP debug-error alert](../evidence/zap/11-debug-error-message-alert.png) and [detail view](../evidence/zap/12-debug-error-message-detail.png)
 
-ZAP flagged the text `Internal server error` at `/swagger/properties.json`. The screenshot does not show a stack trace, source path, database detail or other sensitive diagnostic information. The alert is therefore not treated as a confirmed information-disclosure vulnerability.
+ZAP flagged the text `Internal server error` at `/swagger/properties.json`. The screenshots do not show a stack trace, source path, database detail or other sensitive diagnostic information. The alert is therefore not treated as a confirmed information-disclosure vulnerability.
 
 **Recommendation:** Return generic error messages to users and retain detailed diagnostics in access-controlled server-side logs. Review server logs through an authorised administrative process.
 
