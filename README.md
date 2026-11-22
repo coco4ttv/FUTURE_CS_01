@@ -1,6 +1,6 @@
 # Future Interns — Task 1: Read-Only Vulnerability Assessment
 
-**Status:** Read-only assessment completed; nine-page report prepared. PDF is ready for repository upload.
+**Status:** Read-only assessment completed; nine-page report prepared.
 
 ## Project overview
 
@@ -12,10 +12,10 @@ This project documents a limited read-only security review of the public Altoro 
 | Application | Altoro Mutual (AltoroJ demonstration application) |
 | Assessment type | Read-only browser review and passive security observation |
 | Evidence dates | 30 October, 8 November and 22 November 2026 |
-| Tools | Chrome/Firefox Developer Tools, OWASP ZAP 2.17.0 |
-| Report | Nine-page Canva report and PDF |
+| Tools | Chrome/Firefox Developer Tools, OWASP ZAP 2.17.0, Canva |
+| Report | [Nine-page PDF report](report/FUTURE_CS_01_Vulnerability_Assessment_Report.pdf) |
 
-**Canva report:** https://www.canva.com/d/QaO7S9C3HdCNRsj
+**Editable Canva report:** https://www.canva.com/d/QaO7S9C3HdCNRsj
 
 The hosted Testfire target is the subject of this assessment. The separate AltoroJ Docker installation on Kali is a practice environment and is **not** treated as the assessed target.
 
@@ -36,9 +36,9 @@ ZAP reported a possible absence of anti-CSRF tokens in two forms based on passiv
 ## Assessment activity and evidence
 
 ### Browser observations
-- **30 October 2026 — HTTP:** Chrome DevTools recorded `GET http://testfire.net/` returning `200 OK`. The response showed `Apache-Coyote/1.1` and a JSESSIONID cookie with HttpOnly and Path attributes visible.
+- **30 October 2026 — HTTP:** Chrome DevTools recorded `GET http://testfire.net/` returning `200 OK`. The response showed `Apache-Coyote/1.1` and a JSESSIONID cookie with HttpOnly and Path attributes visible. A session identifier appeared in the original screenshot; that unredacted original has been removed from the current repository file tree.
 - **30 October 2026 — HTTPS:** Chrome displayed `NET::ERR_CERT_AUTHORITY_INVALID` for `https://testfire.net/`. This records a browser trust warning; the exact certificate cause was not established.
-- **8 November 2026 — HTTP:** Firefox DevTools recorded another `200 OK` response for `GET http://testfire.net/`, with response headers including Content-Type, Date, Server and Transfer-Encoding.
+- **8 November 2026 — HTTP:** Firefox Developer Tools recorded a `GET /` response of `200 OK`, with Content-Type, Date, Server and Transfer-Encoding visible.
 
 ### OWASP ZAP passive observation — 22 November 2026
 - ZAP was visibly set to **Safe Mode**.
@@ -51,6 +51,7 @@ Evidence indexes:
 - [Evidence overview](evidence/README.md)
 - [OWASP ZAP screenshots](evidence/zap/README.md)
 - [Findings register](findings/findings-register.md)
+- [Technical references](references/references.md)
 
 ## Findings and limitations
 
@@ -59,14 +60,6 @@ Six candidate configuration observations are prioritised for remediation: CSP, a
 The HTTPS certificate trust warning is recorded separately as an observation with medium investigation priority; its root cause is unconfirmed. The anti-CSRF and generic internal-server-error alerts are also not treated as confirmed vulnerabilities.
 
 The report explains what each issue means in plain English, its potential business impact, proposed priority and recommended remediation. It references OWASP guidance and MDN documentation.
-
-## Repository report file
-
-The final PDF is ready to be added at:
-
-`report/FUTURE_CS_01_Vulnerability_Assessment_Report.pdf`
-
-The Canva design is the editable master; the exported PDF is the submission copy.
 
 ## Disclaimer
 
